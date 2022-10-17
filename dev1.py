@@ -1,1 +1,1 @@
-print('')
+print('vai tomar no seu cu flamengo lixo')
