@@ -1,1 +1,1 @@
-print('')
+print('vai tomar no cu corinthians')
