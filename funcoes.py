@@ -59,3 +59,21 @@ def valida_questao(questao):
             retorno['correta'] = 'valor_errado'
     return retorno      
 
+def valida_questoes(lista):
+    lista_questoes = []
+    for questao in lista:
+        lista_questoes.append(valida_questao(questao))
+    return lista_questoes
+
+import random 
+def sorteia_questao(dic,nivel):
+    dicionario = dic[nivel]
+    x = random.choice(dicionario)
+    return x
+
+def sorteia_questao_inedita(dicionario,nivel,lista):
+    x = sorteia_questao(dicionario,nivel)
+    while x in lista:
+        x = sorteia_questao(dicionario,nivel)
+    lista.append(x)
+    return x
