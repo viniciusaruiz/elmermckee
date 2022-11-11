@@ -77,3 +77,34 @@ def sorteia_questao_inedita(dicionario,nivel,lista):
         x = sorteia_questao(dicionario,nivel)
     lista.append(x)
     return x
+
+
+def questao_para_texto(dicionario,n):
+    x = f'''----------------------------------------
+QUESTAO {n}
+
+{dicionario['titulo']}
+
+RESPOSTAS:
+A: {dicionario['opcoes']['A']}
+B: {dicionario['opcoes']['B']}
+C: {dicionario['opcoes']['C']}
+D: {dicionario['opcoes']['D']}'''
+    return x
+
+import random
+def gera_ajuda(dicionario):
+    certa = dicionario['certa']
+    lista = [dicionario['opcoes']['A'],dicionario['opcoes']['B'],dicionario['opcoes']['C'],dicionario['opcoes']['D']]
+    y = lista.index(dicionario['opcoes'][certa])
+    del lista[y]
+    x = random.randint(1,2)
+    if x == 1:
+        z = random.choice(lista)
+        return f'DICA:\nOpções certamente erradas: {z}'
+    if x == 2:
+        z = random.choice(lista)
+        y = lista.index(z)
+        del lista[y]
+        a = random.choice(lista)
+        return f'DICA:\nOpções certamente erradas: {z} | {a}'
