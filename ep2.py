@@ -60,14 +60,14 @@ while y == True:
         time.sleep(1.5)
         break 
     if resp == "parar":
-        parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(total))
+        parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(premios[contador]))
         time.sleep(1.5)
         while parar != "S" or parar != "N":
             time.sleep(1.5) 
             print(Fore.RED + "Opção inválida")
-            parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(total))
+            parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(premios[contador]))
         if parar == "S":
-            print("Ok! Você parou e seu prêmio é de R${0}.00".format(total))
+            print("Ok! Você parou e seu prêmio é de R${0}.00".format(premios[contador]))
             break             
     y == True 
     print("-"*75)
