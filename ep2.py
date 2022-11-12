@@ -7,17 +7,17 @@ import funcoes
 premios = [1000, 5000, 10000, 30000, 50000, 100000, 300000, 500000, 1000000]
 y = True
 total = 0
-print("Olá! Você está no Fortune DesSfot e terá a oportunidade de enriquecer!")
+print(Fore.MAGENTA + "Olá! Você está no Fortune DesSfot e terá a oportunidade de enriquecer!" + Fore.RESET)
 time.sleep(1.5)
-nome = input("Qual seu nome? ")
+nome = input("Qual seu nome?")
 time.sleep(1.5)
 print(f"Ok {nome}, você tem direito a pular 3 vezes e 2 ajudas!")
 time.sleep(1.5)
 print("As opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula e 'parar'! ")
 time.sleep(1.5)
-enter = input("Aperte ENTER para continuar...")
+enter = input("Aperte ENTER para continuar...\n")
 print("O jogo ja vai começar! Lá vem a primeira questão!")
-print("Vamos começar com questões do nível FACIL!")
+print("Vamos começar com questões do nível" + Fore.YELLOW + " FACIL!" + Fore.RESET)
 time.sleep(1.5)
 enter = input("Aperte ENTER para continuar...")
 
@@ -27,6 +27,8 @@ print("-"*75)
 contador = 0
 num = 1
 lista_sorteada = []
+pulo = 3
+ajudas = 2
 while y == True:
     transforma = funcoes.transforma_base(base_questoes.perguntas)
     if contador >= 0 and contador < 4:
@@ -36,22 +38,60 @@ while y == True:
     if contador >= 7 and contador < 11:
         sorteada = funcoes.sorteia_questao_inedita(transforma,'dificil',lista_sorteada)
     if num == 4:
-            print("HEY! Você passou para o nível MEDIO!")
+            print("\nHEY! Você passou para o nível" + Fore.YELLOW + "MÉDIO!" + Fore.RESET)
     if num == 7:
-            print("HEY! Você passou para o nível DIFICIL!")
+            print("\nHEY! Você passou para o nível" + Fore.YELLOW + "DIFÍCIL!" + Fore.RESET)
     print(funcoes.questao_para_texto(sorteada,num))
-    num +=1 
 
     resposta = input("Qual sua resposta?") 
 
     resp = resposta.upper()
-    if resp not in sorteada['opcoes']: 
+    while resp not in sorteada['opcoes'] and resp != "AJUDA" and resp != "PARAR": 
         print(Fore.RED + "Opção inválida")
-        print(Fore.BLUE + "AS opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula e 'parar'!")
+        print(Fore.BLUE + "AS opções de resposta são 'A', 'B', 'C', 'D', 'ajuda', 'pula e 'parar'!" + Fore.RESET)
         time.sleep(1.5) 
-        resp = input(Fore.RESET + "Qual sua resposta?")
+        resp = input("Qual sua resposta?").upper()
+
+    
+    if resp == "AJUDA":
+        time.sleep(1.5)
+        if ajudas > 1:
+            print(Fore.CYAN + f"\nOk,lá vem ajuda! Você ainda tem {ajudas - 1} ajudas!" + Fore.RESET)
+            enter = input("Aperte ENTER para continuar...\n")
+            print(funcoes.gera_ajuda(sorteada))
+            enter = input("Aperte ENTER para continuar...\n")
+            print(funcoes.questao_para_texto(sorteada,num))
+            resposta = input("Qual sua resposta?") 
+            resp = resposta.upper()
+            if resp == "AJUDA":
+                print(Fore.RED + "Não deu! Você já pediu ajuda nessa questão" + Fore.RESET)
+                enter = input("Aperte ENTER para continuar...")
+
+        if ajudas == 1:
+            print(Fore.YELLOW + f"Ok,á vem ajuda! ATENÇÃO: você não tem mais direito a ajudas!" + Fore.RESET)
+            enter = input("Aperte ENTER para continuar...\n")
+            print(funcoes.gera_ajuda(sorteada))
+            enter = input("Aperte ENTER para continuar...\n")
+            print(funcoes.questao_para_texto(sorteada,num))
+            resposta = input("Qual sua resposta?") 
+            resp = resposta.upper()
+            if resp == "AJUDA":
+                print(Fore.RED + "Não deu! Você já pediu ajuda nessa questão" + Fore.RESET)
+                enter = input("Aperte ENTER para continuar...")
+
+        if ajudas == 0:
+            print(Fore.RED + f"Não deu! Você não tem mais direito a ajudas!" + Fore.RESET)
+            enter = input("Aperte ENTER para continuar...\n")
+            print(funcoes.questao_para_texto(sorteada,num))
+            resposta = input("Qual sua resposta?") 
+            resp = resposta.upper()
+            if resp == "AJUDA":
+                print(Fore.RED + "Não deu! Você já pediu ajuda nessa questão" + Fore.RESET)
+                enter = input("Aperte ENTER para continuar...")
+
+        ajudas = ajudas - 1 
+
     if resp == sorteada['correta']:
-        total += 1000
         print(Fore.GREEN + "Você acertou! Seu prêmio atual é de R${0}.00 :D".format(premios[contador]) + Fore.RESET)
         time.sleep(1.5) 
         contador += 1
@@ -59,15 +99,7 @@ while y == True:
         print(Fore.RED + "Que pena! Você errou e vai sair sem nada :(" + Fore.RESET)
         time.sleep(1.5)
         break 
-    if resp == "parar":
-        parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(premios[contador]))
-        time.sleep(1.5)
-        while parar != "S" or parar != "N":
-            time.sleep(1.5) 
-            print(Fore.RED + "Opção inválida")
-            parar = input(Fore.RESET + "Deseja mesmo para [S/N]?? Caso responda 'S', sairá com R${0}.00!".format(premios[contador]))
-        if parar == "S":
-            print("Ok! Você parou e seu prêmio é de R${0}.00".format(premios[contador]))
-            break             
+
+    num +=1 
     y == True 
     print("-"*75)

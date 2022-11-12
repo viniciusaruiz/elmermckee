@@ -94,7 +94,7 @@ D: {dicionario['opcoes']['D']}'''
 
 import random
 def gera_ajuda(dicionario):
-    certa = dicionario['certa']
+    certa = dicionario['correta']
     lista = [dicionario['opcoes']['A'],dicionario['opcoes']['B'],dicionario['opcoes']['C'],dicionario['opcoes']['D']]
     y = lista.index(dicionario['opcoes'][certa])
     del lista[y]
