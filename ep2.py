@@ -1,9 +1,10 @@
+import random
 import time
 from colorama import Fore
-import random 
-import funcoes 
 import base_questoes
+import funcoes
 
+premios = [1000, 5000, 10000, 30000, 50000, 100000, 300000, 500000, 1000000]
 y = True
 total = 0
 print("Olá! Você está no Fortune DesSfot e terá a oportunidade de enriquecer!")
@@ -21,18 +22,23 @@ time.sleep(1.5)
 enter = input("Aperte ENTER para continuar...")
 
 
-print("-"*150)
+print("-"*75)
 
 contador = 0
 num = 1
+lista_sorteada = []
 while y == True:
     transforma = funcoes.transforma_base(base_questoes.perguntas)
     if contador >= 0 and contador < 4:
-        sorteada = funcoes.sorteia_questao(transforma,'facil')
+        sorteada = funcoes.sorteia_questao_inedita(transforma,'facil',lista_sorteada)
     if contador >= 4 and contador < 7:
-        sorteada = funcoes.sorteia_questao(transforma,'medio')
+        sorteada = funcoes.sorteia_questao_inedita(transforma,'medio',lista_sorteada)
     if contador >= 7 and contador < 11:
-        sorteada = funcoes.sorteia_questao(transforma,'dificil')
+        sorteada = funcoes.sorteia_questao_inedita(transforma,'dificil',lista_sorteada)
+    if num == 4:
+            print("HEY! Você passou para o nível MEDIO!")
+    if num == 7:
+            print("HEY! Você passou para o nível DIFICIL!")
     print(funcoes.questao_para_texto(sorteada,num))
     num +=1 
 
@@ -46,7 +52,7 @@ while y == True:
         resp = input(Fore.RESET + "Qual sua resposta?")
     if resp == sorteada['correta']:
         total += 1000
-        print(Fore.GREEN + "Você acertou! Seu prêmio atual é de R${0}.00 :D".format(total) + Fore.RESET)
+        print(Fore.GREEN + "Você acertou! Seu prêmio atual é de R${0}.00 :D".format(premios[contador]) + Fore.RESET)
         time.sleep(1.5) 
         contador += 1
     if resp != sorteada['correta']: 
@@ -64,4 +70,4 @@ while y == True:
             print("Ok! Você parou e seu prêmio é de R${0}.00".format(total))
             break             
     y == True 
-    print("-"*100)
+    print("-"*75)
