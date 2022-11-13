@@ -93,6 +93,7 @@ D: {dicionario['opcoes']['D']}'''
     return x
 
 import random
+from colorama import Fore
 def gera_ajuda(dicionario):
     certa = dicionario['correta']
     lista = [dicionario['opcoes']['A'],dicionario['opcoes']['B'],dicionario['opcoes']['C'],dicionario['opcoes']['D']]
@@ -101,10 +102,10 @@ def gera_ajuda(dicionario):
     x = random.randint(1,2)
     if x == 1:
         z = random.choice(lista)
-        return f'DICA:\nOpções certamente erradas: {z}'
+        return Fore.BLACK + f'DICA:\nOpções certamente erradas: {z}' + Fore.RESET
     if x == 2:
         z = random.choice(lista)
         y = lista.index(z)
         del lista[y]
         a = random.choice(lista)
-        return f'DICA:\nOpções certamente erradas: {z} | {a}'
+        return Fore.BLACK + f'DICA:\nOpções certamente erradas: {z} | {a}' + Fore.RESET
